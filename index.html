@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Cinemas</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+    <script defer src='./js/script.js'></script>
+</head>
+<body>
+    <div class='welcomeMenu' id='mainMenu'>
+        <h1 id='gameTitle'>Hangman Cinemas</h1>
+
+        <div class='welcomeMenu' id='playerSelect'>
+            <h2>SOLO</h2>       
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            <h2 id='playWithAFriend'>PLAY WITH A FRIEND</h2>
+        </div>
+
+        <div class='welcomeMenu' id='genreSelect'>
+            <h2>Select your favorite genres.</h2>
+            <label class="container">Action
+                <input type="checkbox" checked="checked">
+                <span class="checkmark"></span>
+              </label>
+              <label class="container">Comedy
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+              <label class="container">Thriller
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+              <label class="container">Drama
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+        </div>
+
+        <div class='welcomeMenu' id='startGame' >
+            <button class="btn success">START GAME</button>
+        </div>
+    </div>
+</body>
+</html>
