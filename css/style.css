@@ -4,7 +4,8 @@
     align-items: center;
     height: 600px;
     justify-content: space-around;
-    color: palegoldenrod;
+    font-family: 'Poppins', sans-serif;
+    color: white;
 }
 
 #playerSelect h2 {
@@ -13,7 +14,7 @@
 
 #mainMenu {
     background: rgb(191,58,58);
-    background: linear-gradient( rgb(4, 27, 156) 5%, rgb(255, 72, 0) 90%);
+    background: linear-gradient( rgb(2, 18, 110) 5%, rgb(37, 102, 163) 90%);
     border-color: black;
     border-style: solid;
     border-width: 20px;
@@ -68,11 +69,11 @@
   }
   
   input:checked + .slider {
-    background-color: #1478ca;
+    background-color: #c7660b;
   }
   
   input:focus + .slider {
-    box-shadow: 0 0 1px #1478ca;
+    box-shadow: 0 0 1px #c7660b;
   }
   
   input:checked + .slider:before {
