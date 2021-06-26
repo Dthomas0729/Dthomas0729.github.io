@@ -1,4 +1,4 @@
-.welcomeMenu {
+.welcomeMenu, .gameScreen {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,11 +8,8 @@
     color: white;
 }
 
-#playerSelect h2 {
-    width: min-content;
-}
 
-#mainMenu {
+#mainMenu, #gameplayScreen {
     background: rgb(191,58,58);
     background: linear-gradient( rgb(2, 18, 110) 5%, rgb(37, 102, 163) 90%);
     border-color: black;
@@ -21,11 +18,20 @@
     padding: 20px;
 }
 
+#playerSelect h2 {
+    width: min-content;
+}
+
 #playerSelect {
     display: flex;
     flex-flow: row;
     justify-content: space-evenly;
     width: 540px;
+}
+
+#playerSection {
+    display: flex;
+    align-items: flex-start;
 }
 
 /* The switch - the box around the slider */
