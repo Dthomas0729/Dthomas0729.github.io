@@ -43,6 +43,25 @@
     align-items: flex-start;
 }
 
+#gameboard {
+    display: flex;
+    flex-flow: row wrap;
+    width: -webkit-fill-available;
+}
+
+#gameboard h1 {
+    letter-spacing: 8px;
+}
+
+#letterInput {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid white;
+    border-radius: 4px;
+  }
+
 /* The switch - the box around the slider */
 .switch {
     position: relative;

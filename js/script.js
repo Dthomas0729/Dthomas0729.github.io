@@ -33,6 +33,8 @@ let hangmanCinemas = {
         $('#gameplayScreen').show();
 
         hangmanCinemas.getRandomMovie();
+        
+        
     },
 
     toggleMultiplayer: function toggleMultiplayer() {
@@ -47,18 +49,18 @@ let hangmanCinemas = {
 
     getRandomMovie: async function getRandomMovie(e) {
 
-        let movieId = 'popular';
-        const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${hangmanCinemas.apiKey}&language=en-US&page=1`
+        // let movieId = 'popular';
+        // const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${hangmanCinemas.apiKey}&language=en-US&page=1`
    
-        let response = await fetch(url);
-        let data = await response.json();
+        // let response = await fetch(url);
+        // let data = await response.json();
 
         // console.log(data);
 
         let movieList = [];
    
         for (page = 1; page <= 240; page++) {
-            const url = `https://api.themoviedb.org/3/movie/popular?api_key=${hangmanCinemas.apiKey}&language=en-US&page=${page}`
+            const url = `https://api.themoviedb.org/3/movie/popular?api_key=${this.apiKey}&language=en-US&page=${page}`
 
             let response = await fetch(url);
             let data = await response.json();
@@ -68,27 +70,44 @@ let hangmanCinemas = {
             }
         }
 
-        hangmanCinemas.movieInPlay = movieList[
+        this.movieInPlay = movieList[
             Math.floor(Math.random() * (movieList.length - 1))
         ]
-        console.log(hangmanCinemas.movieInPlay);
 
-        return hangmanCinemas.movieInPlay
+        console.log(this.movieInPlay);
+
+        this.displayBoard()
     },
 
     displayBoard: function displayBoard() {
-        let gameboard = $('#gameboard');
+        let gameboardEl = $('#gameboard');
 
-        for (const l of hangmanCinemas.movieInPlay.split('')) {
-            if (l in hangmanCinemas.playerOne.guessedLetters || l in hangmanCinemas.playerTwo.guessedLetters) {
-                gameboard.append(`<h2>${l}</h2>`);
-            } else if (l === ' ' || l === ':') {
-                gameboard.append(`<h2>${l}</h2>`);
+        console.log(gameboardEl.html());
+
+        const delimiter = '<i class="fas fa-asterisk"></i>'
+
+        for (const l of this.movieInPlay.split('')) {
+
+            console.log(parseInt(l));
+            
+            if ([0,1,2,3,4,5,6,7,8,9].includes(parseInt(l))) {
+                this.getRandomMovie()
+            } else if (this.playerOne.guessedLetters.includes(l) || this.playerTwo.guessedLetters.includes(l)) {
+                this.gameboard.push(l);
+            } else if (l === ' ' || l === ':' || l === '\'') {
+                this.gameboard.push(l);
+            } else {
+                this.gameboard.push(delimiter);
             }
         }
-
+        console.log(this.gameboard)
+        gameboardEl.html(`<h1>${this.gameboard.join('')}`)
     }, 
-}
+
+    skipMovie: function skipMovie() {
+        return
+    }
+}   
 
 
 async function getMovieData(e) {
