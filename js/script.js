@@ -80,7 +80,7 @@ let hangmanCinemas = {
     },
 
     displayBoard: function displayBoard() {
-        let gameboardEl = $('#gameboard');
+        let gameboardEl = $('#gameboard').hide();
 
         console.log(gameboardEl.html());
 
@@ -101,7 +101,9 @@ let hangmanCinemas = {
             }
         }
         console.log(this.gameboard)
-        gameboardEl.html(`<h1>${this.gameboard.join('')}`)
+
+        gameboardEl.html(`<h1>${this.gameboard.join('')}`);
+        gameboardEl.fadeIn('slow');
     }, 
 
     skipMovie: function skipMovie() {
