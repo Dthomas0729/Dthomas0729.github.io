@@ -31,6 +31,8 @@ let hangmanCinemas = {
 
         $('#mainMenu').hide();
         $('#gameplayScreen').show();
+
+        hangmanCinemas.getRandomMovie();
     },
 
     toggleMultiplayer: function toggleMultiplayer() {
@@ -43,16 +45,49 @@ let hangmanCinemas = {
         }
     },
 
-    selectGenres: function selectGenres(params) {
-        return
+    getRandomMovie: async function getRandomMovie(e) {
+
+        let movieId = 'popular';
+        const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${hangmanCinemas.apiKey}&language=en-US&page=1`
+   
+        let response = await fetch(url);
+        let data = await response.json();
+
+        // console.log(data);
+
+        let movieList = [];
+   
+        for (page = 1; page <= 240; page++) {
+            const url = `https://api.themoviedb.org/3/movie/popular?api_key=${hangmanCinemas.apiKey}&language=en-US&page=${page}`
+
+            let response = await fetch(url);
+            let data = await response.json();
+            
+            for (const movie of data.results) {
+                movieList.push(movie.title);
+            }
+        }
+
+        hangmanCinemas.movieInPlay = movieList[
+            Math.floor(Math.random() * (movieList.length - 1))
+        ]
+        console.log(hangmanCinemas.movieInPlay);
+
+        return hangmanCinemas.movieInPlay
     },
 
     displayBoard: function displayBoard() {
-        return
-    },
+        let gameboard = $('#gameboard');
 
+        for (const l of hangmanCinemas.movieInPlay.split('')) {
+            if (l in hangmanCinemas.playerOne.guessedLetters || l in hangmanCinemas.playerTwo.guessedLetters) {
+                gameboard.append(`<h2>${l}</h2>`);
+            } else if (l === ' ' || l === ':') {
+                gameboard.append(`<h2>${l}</h2>`);
+            }
+        }
 
-
+    }, 
 }
 
 

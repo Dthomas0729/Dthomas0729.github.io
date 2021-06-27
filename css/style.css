@@ -8,6 +8,15 @@
     color: white;
 }
 
+#gameplayScreen {
+    display: flex;
+    align-items: baseline;
+}
+
+#titleSection {
+    display: flex;
+    justify-content: center;
+}
 
 #mainMenu, #gameplayScreen {
     background: rgb(191,58,58);
