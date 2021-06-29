@@ -21,7 +21,7 @@ let hangmanCinemas = {
     multiplayer: false,
     movieGenres: [],
     gameboard: [],
-    movieInPlay: '',
+    movieInPlay: {},
 
     startGame: function startGame() {
 
@@ -32,8 +32,7 @@ let hangmanCinemas = {
         $('#mainMenu').hide();
         $('#gameplayScreen').show();
 
-        hangmanCinemas.getRandomMovie();
-        
+        hangmanCinemas.getRandomMovie();   
         
     },
 
@@ -66,7 +65,15 @@ let hangmanCinemas = {
             let data = await response.json();
             
             for (const movie of data.results) {
-                movieList.push(movie.title);
+                // console.log(movie);
+                movieList.push({
+                    id: movie.id,
+                    title: movie.title,
+                    releaseDate: movie.release_date,
+                    posterUrl: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+                    plot: movie.overview,
+                    genreIds: movie.genre_ids           
+                });
             }
         }
 
@@ -83,12 +90,11 @@ let hangmanCinemas = {
         let gameboardEl = $('#gameboard').hide();
 
         console.log(gameboardEl.html());
+        this.gameboard = [];
 
         const delimiter = '<i class="fas fa-asterisk"></i>'
 
-        for (const l of this.movieInPlay.split('')) {
-
-            console.log(parseInt(l));
+        for (const l of this.movieInPlay.title.split('')) {
             
             if ([0,1,2,3,4,5,6,7,8,9].includes(parseInt(l))) {
                 this.getRandomMovie()
@@ -100,7 +106,6 @@ let hangmanCinemas = {
                 this.gameboard.push(delimiter);
             }
         }
-        console.log(this.gameboard)
 
         gameboardEl.html(`<h1>${this.gameboard.join('')}`);
         gameboardEl.fadeIn('slow');
@@ -108,30 +113,35 @@ let hangmanCinemas = {
 
     skipMovie: function skipMovie() {
         return
-    }
+    },
+
+    displayGuessedLetters: function displayGuessedLetters(player) {
+        let letters = player.guessedLetters.join('    ');
+        
+        $('#guessedLetters').html(`<h3>${letters}</h3>`);
+    },
+
+    guessLetter: function guessLetter() {
+        let letter = $('#letterInput').val();
+        let player = hangmanCinemas.playerOne
+        $('#letterInput').val('');
+
+        console.log(letter);
+        hangmanCinemas.playerOne.guessedLetters.push(letter);
+
+        console.log(hangmanCinemas.playerOne.guessedLetters)
+        hangmanCinemas.displayGuessedLetters(player);
+        hangmanCinemas.displayBoard();
+    },
 }   
 
 
-async function getMovieData(e) {
-    e.preventDefault();
-
-    // const apiKey = '92d3000a'
-    // const url = `http://www.omdbapi.com/?page=4&apikey=${apiKey}`
-
-    const apiKey = 'd08176009f77ef9e59b466044b7df500'
-    const url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
-    
-    let response = await fetch(url);
-    let data = await response.json();
-
-    console.log(data) 
-    
-    $('#mainMenu').css('display', 'none');
-    $('#gameplayScreen').css('display', 'flex');
-}
-
 $('#gameplayScreen').hide();
 $('#startBtn').on('click', hangmanCinemas.startGame);
+
+$('#letterBtn').click(hangmanCinemas.guessLetter);
+    
+
 
 multiplayerToggle = $('input[type="checkbox"');
 

@@ -53,14 +53,25 @@
     letter-spacing: 8px;
 }
 
+#gameLeftSide {
+    display: contents;
+}
+
+#gameRightSide {
+    display: contents;
+}
+
 #letterInput {
     width: 100%;
-    padding: 12px 20px;
+    padding: 4px 18px;
     margin: 8px 0;
     box-sizing: border-box;
     border: 2px solid white;
     border-radius: 4px;
+    font-size: xx-large;
+    width: 68px;
   }
+
 
 /* The switch - the box around the slider */
 .switch {

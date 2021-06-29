@@ -66,27 +66,36 @@
 
     <div class='gameScreen' id='gameplayScreen'>
 
-        <h1 id='gameTitle'>Hangman Cinemas</h1>
-        
+    
+        <div class='gameScreen' id='gameLeftSide'>
 
-        <div class='gameScreen' id='playerSection'>
-            <div class='playerOne'>
-                <h3 id='name'><i class="fas fa-user-circle"></i>  Player One</h3>
-                <h3 id='score'><i class="fas fa-dollar-sign"></i> 0</h3>
-                <h3 id='guessedLetters'> </h3>
+            <h1 id='gameTitle'>Hangman Cinemas</h1>
+            <div class='gameScreen' id='playerSection'>
+                <div class='playerOne'>
+                    <h3 id='name'><i class="fas fa-user-circle"></i>  Player One</h3>
+                    <h3 id='score'><i class="fas fa-dollar-sign"></i> 0</h3>
+                    <h3 id='guessedLetters'> </h3>
+                </div>
+                
+                <div class='playerTwo'>
+                    <h3 id='name'><i class="fas fa-user-circle"></i>  Player Two</h3>
+                    <h3 id='score'><i class="fas fa-dollar-sign"></i> 0</h3>
+                    <h3 id='guessedLetters'> </h3>
+                </div>
+
+            </div>
+
+            <label>Choose A Letter</label>
+            <div>
+                <input type="text" id="letterInput" maxlength="1">
+                <button id='letterBtn'><i class="fas fa-check-circle"></i></button>
             </div>
             
-            <div class='playerTwo'>
-                <h3 id='name'><i class="fas fa-user-circle"></i>  Player Two</h3>
-                <h3 id='score'><i class="fas fa-dollar-sign"></i> 0</h3>
-                <h3 id='guessedLetters'> </h3>
-            </div>
         </div>
         
-        <form>
-            <label>Choose A Letter</label>
-            <input type="text" id="letterInput">
-        </form>
+        <div class='gameScreen' id='gameRightSide'>
+            <img src=''>
+        </div>
         
         <div class='gameScreen' id='gameboard'>
             
