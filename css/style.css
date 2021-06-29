@@ -61,6 +61,28 @@
     display: contents;
 }
 
+#keyboard {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.letterButton {
+    background-color: transparent;
+    border: white;
+    border-style: solid;
+    border-radius: 8px;
+    color: white;
+    padding: 12px 20px;
+    margin: 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+}
+
 #letterInput {
     width: 100%;
     padding: 4px 18px;

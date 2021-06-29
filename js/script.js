@@ -32,8 +32,41 @@ let hangmanCinemas = {
         $('#mainMenu').hide();
         $('#gameplayScreen').show();
 
+        hangmanCinemas.generateButtons();
         hangmanCinemas.getRandomMovie();   
         
+    },
+
+    generateButtons: function generateButtons() {
+        let buttonsHTML = 'abcdefghijklmnopqrstuvwxyz'.split('').map(letter => 
+        `
+            <button 
+                class="letterButton"
+                id="${letter}"
+                >
+                ${letter}
+            </button>
+        `);
+
+        $('#keyboard').html(buttonsHTML);
+        $('#keyboard button').hover(function(e) {
+            e.preventDefault()
+            
+
+            $(e.currentTarget).css({
+                'background-color': 'red',
+                'opacity': '0.3'
+            })
+        }, 
+
+        function (e) {
+            e.preventDefault();
+
+            $(e.currentTarget).css({
+                'background-color': 'transparent',
+                'opacity': '1'
+            })
+        })
     },
 
     toggleMultiplayer: function toggleMultiplayer() {
