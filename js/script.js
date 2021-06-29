@@ -43,9 +43,7 @@ let hangmanCinemas = {
             <button 
                 class="letterButton"
                 id="${letter}"
-                >
-                ${letter}
-            </button>
+                >${letter}</button>
         `);
 
         $('#keyboard').html(buttonsHTML);
@@ -66,7 +64,13 @@ let hangmanCinemas = {
                 'background-color': 'transparent',
                 'opacity': '1'
             })
-        })
+        });
+
+        $('#keyboard button').click(function (e) {
+
+            let letter = $(e.currentTarget).text();
+            hangmanCinemas.guessLetter(letter);
+        });
     },
 
     toggleMultiplayer: function toggleMultiplayer() {
@@ -124,6 +128,10 @@ let hangmanCinemas = {
 
         console.log(gameboardEl.html());
         this.gameboard = [];
+        let p1Letters = this.playerOne.guessedLetters;
+        let p2Letters = this.playerTwo.guessedLetters;
+
+        
 
         const delimiter = '<i class="fas fa-asterisk"></i>'
 
@@ -131,9 +139,11 @@ let hangmanCinemas = {
             
             if ([0,1,2,3,4,5,6,7,8,9].includes(parseInt(l))) {
                 this.getRandomMovie()
-            } else if (this.playerOne.guessedLetters.includes(l) || this.playerTwo.guessedLetters.includes(l)) {
+            } else if (p1Letters.includes(l) || p2Letters.includes(l)) {
                 this.gameboard.push(l);
-            } else if (l === ' ' || l === ':' || l === '\'') {
+            } else if ([' ', ':', '\'', '!', '-', '.', ',', '*'].includes(l)) {
+                this.gameboard.push(l);
+            } else if (p1Letters.includes(l.toLowerCase())) {
                 this.gameboard.push(l);
             } else {
                 this.gameboard.push(delimiter);
@@ -154,10 +164,8 @@ let hangmanCinemas = {
         $('#guessedLetters').html(`<h3>${letters}</h3>`);
     },
 
-    guessLetter: function guessLetter() {
-        let letter = $('#letterInput').val();
+    guessLetter: function guessLetter(letter) {
         let player = hangmanCinemas.playerOne
-        $('#letterInput').val('');
 
         console.log(letter);
         hangmanCinemas.playerOne.guessedLetters.push(letter);
