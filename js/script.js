@@ -52,13 +52,15 @@ let hangmanCinemas = {
             
 
             $(e.currentTarget).css({
-                'background-color': 'red',
-                'opacity': '0.3'
+                'background-color': 'green',
+                'opacity': '0.6'
             })
         }, 
 
         function (e) {
             e.preventDefault();
+
+            
 
             $(e.currentTarget).css({
                 'background-color': 'transparent',
@@ -152,10 +154,21 @@ let hangmanCinemas = {
 
         gameboardEl.html(`<h1>${this.gameboard.join('')}`);
         gameboardEl.fadeIn('slow');
+
+        if (this.gameboard.join('') === this.movieInPlay.title) {
+            hangmanCinemas.displayWinScreen();
+        }
     }, 
 
     skipMovie: function skipMovie() {
         return
+    },
+
+    displayWinScreen: function displayWinScreen() {
+        
+        $('#winScreen').show();
+
+        $('div#moviePoster').html(`<img src="${this.movieInPlay.posterUrl}">`);
     },
 
     displayGuessedLetters: function displayGuessedLetters(player) {
@@ -178,6 +191,7 @@ let hangmanCinemas = {
 
 
 $('#gameplayScreen').hide();
+$('#winScreen').hide();
 $('#startBtn').on('click', hangmanCinemas.startGame);
 
 $('#letterBtn').click(hangmanCinemas.guessLetter);

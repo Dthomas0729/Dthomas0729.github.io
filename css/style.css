@@ -1,4 +1,4 @@
-.welcomeMenu, .gameScreen {
+.welcomeMenu, .gameScreen, .winScreen {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,7 +18,7 @@
     justify-content: center;
 }
 
-#mainMenu, #gameplayScreen {
+#mainMenu, #gameplayScreen, #winScreen {
     background: rgb(191,58,58);
     background: linear-gradient( rgb(2, 18, 110) 5%, rgb(37, 102, 163) 90%);
     border-color: black;
@@ -118,7 +118,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgb(8, 126, 8);
+    background-color: green;
     -webkit-transition: .4s;
     transition: .4s;
   }
@@ -136,11 +136,11 @@
   }
   
   input:checked + .slider {
-    background-color: #c7660b;
+    background-color: orange;
   }
   
   input:focus + .slider {
-    box-shadow: 0 0 1px #c7660b;
+    box-shadow: 0 0 1px orange;
   }
   
   input:checked + .slider:before {
