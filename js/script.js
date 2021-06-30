@@ -19,7 +19,7 @@ let hangmanCinemas = {
     }, 
 
     multiplayer: false,
-    movieGenres: [],
+    selectedGenres: [],
     gameboard: [],
     movieInPlay: {},
 
@@ -97,6 +97,17 @@ let hangmanCinemas = {
         }
     },
 
+    getGenreList: async function getGenreList(e) {
+        const url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${this.apiKey}&language=en-US`;
+        
+        let response = await fetch(url);
+        let data = await response.json();
+
+        console.log(data);
+        this.movieGenres 
+
+    },
+
     getRandomMovie: async function getRandomMovie(e) {
 
         // let movieId = 'popular';
@@ -167,7 +178,7 @@ let hangmanCinemas = {
         gameboardEl.html(`<h1>${this.gameboard.join('')}`);
         gameboardEl.fadeIn('slow');
 
-        hangmanCinemas.displayLoseOrWin();
+        hangmanCinemas.checkWin();
         
     }, 
 
@@ -175,26 +186,7 @@ let hangmanCinemas = {
         return
     },
 
-    displayLoseOrWin: function displayLoseOrWin() {
-
-        if (hangmanCinemas.playerOne.attemps <= 0) {
-            hangmanCinemas.playerOne.attempts += 6;
-            $('#keyboard').hide();
-
-            $('#message').html(`
-                <h3>You Failed.</h3>
-                <p>Would you like to see the answer?</p>
-                <button id="revealMovie">REVEAL MOVIE</button>
-                <button id="playAgain">PLAY AGAIN</button>`)
-                .fadeIn('slow');
-
-            $('button#revealMovie').click(hangmanCinemas.displayWinScreen);
-            $('button#playAgain').click(hangmanCinemas.startGame);
-
-            $('#message').fadeIn('slow');
-
-
-        }
+    checkWin: function checkWin() {
 
         if (this.gameboard.join('') === this.movieInPlay.title) {
             $('#keyboard').hide();
@@ -231,6 +223,7 @@ let hangmanCinemas = {
             'border-style': 'solid',
             'border-color': 'white',
             'color': 'white',
+            'font-family': 'Poppins, sans-serif',
             'font-size': '20px',
             'padding': '4px',
             'margin': '12px'
@@ -271,6 +264,7 @@ let hangmanCinemas = {
                 'border-style': 'solid',
                 'border-color': 'white',
                 'color': 'white',
+                'font-family': 'Poppins, sans-serif',
                 'font-size': '20px',
                 'padding': '4px',
                 'margin': '12px'
@@ -294,12 +288,28 @@ let hangmanCinemas = {
 $('#message').hide();
 $('#gameplayScreen').hide();
 $('#winScreen').hide();
+
+$('#genreSelect input[type="checkbox"]').click(function(e) {
+
+    let genres = hangmanCinemas.selectedGenres;
+
+    if (genres.includes(e.currentTarget.id)) {
+        let index = genres.indexOf(e.currentTarget.id);
+        genres.splice(index, 1);
+    } else {
+        genres.push(e.currentTarget.id);
+    }
+    
+    hangmanCinemas.selectedGenres = genres;
+    console.log(hangmanCinemas.selectedGenres);
+})
+
 $('#startBtn').on('click', hangmanCinemas.startGame);
 
 $('#letterBtn').click(hangmanCinemas.guessLetter);
     
+hangmanCinemas.getGenreList();
 
-
-multiplayerToggle = $('input[type="checkbox"');
+multiplayerToggle = $('#multiplayerToggle input[type="checkbox"]');
 
 multiplayerToggle.click(hangmanCinemas.toggleMultiplayer);
