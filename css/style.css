@@ -25,6 +25,9 @@
   border-style: solid;
   background-color: transparent;
   width: fit-content;
+  font-size: 20px;
+  margin: 12px;
+  padding: 4px;
 }
 
 #startBtn:hover {
@@ -98,13 +101,23 @@
     display: contents;
 }
 
-#keyboard, #message {
+#keyboard {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
     justify-content: center;
     align-content: center;
 }
+
+#message {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+
 
 .letterButton {
     background-color: transparent;

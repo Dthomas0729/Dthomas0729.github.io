@@ -199,7 +199,7 @@ let hangmanCinemas = {
         if (this.gameboard.join('') === this.movieInPlay.title) {
             $('#keyboard').hide();
 
-            $('#message').append(`<h1>You Won!</h1>`).fadeIn('slow');
+            $('#message').html(`<h1>You Won!</h1>`).fadeIn('slow');
 
             setTimeout(function(){ hangmanCinemas.displayWinScreen(); }, 3000);
 
@@ -231,7 +231,9 @@ let hangmanCinemas = {
             'border-style': 'solid',
             'border-color': 'white',
             'color': 'white',
-            'font-size': 16,
+            'font-size': '20px',
+            'padding': '4px',
+            'margin': '12px'
         })
         $('button#playAgain').click(hangmanCinemas.startGame);
         
@@ -256,8 +258,7 @@ let hangmanCinemas = {
             $('#keyboard').hide();
 
             $('#message').html(`
-                <h3>You Failed.</h3>
-                <p>Would you like to see the answer?</p>
+                <h2>You Ran Out of Guesses.</h2>
                 <button id="revealMovie">REVEAL MOVIE</button>
                 <button id="playAgain">PLAY AGAIN</button>`)
                 .fadeIn('slow');
@@ -265,6 +266,15 @@ let hangmanCinemas = {
             $('button#revealMovie').click(hangmanCinemas.displayWinScreen);
             $('button#playAgain').click(hangmanCinemas.startGame);
 
+            $('#message button').css({
+                'background-color': 'transparent',
+                'border-style': 'solid',
+                'border-color': 'white',
+                'color': 'white',
+                'font-size': '20px',
+                'padding': '4px',
+                'margin': '12px'
+            })
             $('#message').fadeIn('slow');
 
         }
