@@ -119,12 +119,15 @@ let hangmanCinemas = {
         // console.log(data);
 
         let movieList = [];
+        let genreList = hangmanCinemas.selectedGenres.join(', ');
    
-        for (page = 1; page <= 240; page++) {
-            const url = `https://api.themoviedb.org/3/movie/popular?api_key=${this.apiKey}&language=en-US&page=${page}`
+        for (page = 1; page <= 20; page++) {
+            const url = `https://api.themoviedb.org/3/discover/movie?api_key=${this.apiKey}&language=en-US&sort_by=popularity.desc&certification_country=US&include_adult=false&page=${page}&with_genres=${genreList}`
+            // const url = `https://api.themoviedb.org/3/movie/popular?api_key=${this.apiKey}&language=en-US&page=${page}`
 
             let response = await fetch(url);
             let data = await response.json();
+            console.log(data);
             
             for (const movie of data.results) {
                 // console.log(movie);
@@ -151,7 +154,6 @@ let hangmanCinemas = {
     displayBoard: function displayBoard() {
         let gameboardEl = $('#gameboard').hide();
 
-        console.log(gameboardEl.html());
         this.gameboard = [];
         let p1Letters = this.playerOne.guessedLetters;
         let p2Letters = this.playerTwo.guessedLetters;
@@ -274,7 +276,6 @@ let hangmanCinemas = {
         }
 
         console.log(this.playerOne.attempts)
-        console.log(this.movieInPlay.title.toLowerCase().split('').includes(letter));
         hangmanCinemas.playerOne.guessedLetters.push(letter);
 
         hangmanCinemas.displayGuessedLetters(player);
