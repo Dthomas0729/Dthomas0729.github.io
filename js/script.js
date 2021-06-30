@@ -7,7 +7,7 @@ let hangmanCinemas = {
         score: 0,
         movieCollection: [],
         guessedLetters: [],
-        attemps: 6,
+        attemps: 10,
     },
     
     playerTwo: {  
@@ -143,7 +143,7 @@ let hangmanCinemas = {
                 this.getRandomMovie()
             } else if (p1Letters.includes(l) || p2Letters.includes(l)) {
                 this.gameboard.push(l);
-            } else if ([' ', ':', '\'', '!', '-', '.', ',', '*'].includes(l)) {
+            } else if ([' ', ':', '\'', '!', '-', '.', ',', '*', '&'].includes(l)) {
                 this.gameboard.push(l);
             } else if (p1Letters.includes(l.toLowerCase())) {
                 this.gameboard.push(l);
@@ -155,8 +155,29 @@ let hangmanCinemas = {
         gameboardEl.html(`<h1>${this.gameboard.join('')}`);
         gameboardEl.fadeIn('slow');
 
+        if (this.playerOne.attemps <= 0) {
+            $('#keyboard').hide();
+
+            $('#message').append(`
+                <h3>You Failed.</h3>
+                <p>Would you like to see the answer?</p>
+                <button id="revealMovie">REVEAL MOVIE</button>
+                <button id="nextMovie">NEXT MOVIE</button>`)
+                .fadeIn('slow');
+
+            $('button#revealMovie').click(hangmanCinemas.displayWinScreen);
+            $('#message').fadeIn('slow');
+
+
+        }
+
         if (this.gameboard.join('') === this.movieInPlay.title) {
-            hangmanCinemas.displayWinScreen();
+            $('#keyboard').hide();
+
+            $('#message').append(`<h1>You Won!</h1>`).fadeIn('slow');
+
+            setTimeout(function(){ hangmanCinemas.displayWinScreen(); }, 3000);
+
         }
     }, 
 
@@ -164,11 +185,27 @@ let hangmanCinemas = {
         return
     },
 
+    displayLoseOrWin: function displayLoseOrWin() {
+        
+    },
+
     displayWinScreen: function displayWinScreen() {
         
-        $('#winScreen').show();
+        $('#winScreen').fadeIn("slow");
+        $('#gameplayScreen').hide();
+
 
         $('div#moviePoster').html(`<img src="${this.movieInPlay.posterUrl}">`);
+        $('div#moviePoster img').css({
+            'max-width': "-webkit-fill-available",
+            'height': 'auto'
+        });
+
+        $('#movieTitle').text(this.movieInPlay.title);
+        $('#movieDetails').append(`
+            <label>Release: <p>${this.movieInPlay.releaseDate}</p> </label>
+            <label>Plot: <p>${this.movieInPlay.plot}</p> </label>
+        `);
     },
 
     displayGuessedLetters: function displayGuessedLetters(player) {
@@ -180,16 +217,20 @@ let hangmanCinemas = {
     guessLetter: function guessLetter(letter) {
         let player = hangmanCinemas.playerOne
 
+        
+
         console.log(letter);
         hangmanCinemas.playerOne.guessedLetters.push(letter);
 
-        console.log(hangmanCinemas.playerOne.guessedLetters)
         hangmanCinemas.displayGuessedLetters(player);
         hangmanCinemas.displayBoard();
+
+
+
     },
 }   
 
-
+$('#message').hide();
 $('#gameplayScreen').hide();
 $('#winScreen').hide();
 $('#startBtn').on('click', hangmanCinemas.startGame);

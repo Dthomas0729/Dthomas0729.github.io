@@ -18,6 +18,20 @@
     justify-content: center;
 }
 
+#startBtn {
+  transition-duration: 0.4s;
+  color: white;
+  border-color: white;
+  border-style: solid;
+  background-color: transparent;
+  width: fit-content;
+}
+
+#startBtn:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
 #mainMenu, #gameplayScreen, #winScreen {
     background: rgb(191,58,58);
     background: linear-gradient( rgb(2, 18, 110) 5%, rgb(37, 102, 163) 90%);
@@ -25,6 +39,29 @@
     border-style: solid;
     border-width: 20px;
     padding: 20px;
+}
+
+#detailsSection {
+  display: flex;
+  width: -webkit-fill-available;
+  justify-content: flex-start;
+}
+
+#moviePoster {
+  display: flex;
+  width: 1600px;
+}
+
+#moviePoster img {
+  width: 100%;
+  height: auto;
+}
+
+#movieDetails {
+  display: flex;
+  margin: 20px;
+  flex-direction: column;
+
 }
 
 #playerSelect h2 {
@@ -61,7 +98,7 @@
     display: contents;
 }
 
-#keyboard {
+#keyboard, #message {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
