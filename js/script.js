@@ -7,7 +7,7 @@ let hangmanCinemas = {
         score: 0,
         movieCollection: [],
         guessedLetters: [],
-        attemps: 10,
+        attemps: 6,
     },
     
     playerTwo: {  
@@ -25,10 +25,19 @@ let hangmanCinemas = {
 
     startGame: function startGame() {
 
+        hangmanCinemas.gameboard = [];
+        hangmanCinemas.playerOne.guessedLetters = [];
+        hangmanCinemas.playerTwo.guessedLetters = [];
+        hangmanCinemas.playerOne.attempts = 6;
+        hangmanCinemas.playerTwo.attempts = 6;
+
+        hangmanCinemas.displayGuessedLetters(hangmanCinemas.playerOne)
+
         if (hangmanCinemas.multiplayer === false) {
             $('.playerTwo').css('display', 'none');
         } 
 
+        $('#winScreen').hide();
         $('#mainMenu').hide();
         $('#gameplayScreen').show();
 
@@ -73,6 +82,9 @@ let hangmanCinemas = {
             let letter = $(e.currentTarget).text();
             hangmanCinemas.guessLetter(letter);
         });
+
+        $('#message').hide();
+        $('#keyboard').show();
     },
 
     toggleMultiplayer: function toggleMultiplayer() {
@@ -155,17 +167,30 @@ let hangmanCinemas = {
         gameboardEl.html(`<h1>${this.gameboard.join('')}`);
         gameboardEl.fadeIn('slow');
 
-        if (this.playerOne.attemps <= 0) {
+        hangmanCinemas.displayLoseOrWin();
+        
+    }, 
+
+    skipMovie: function skipMovie() {
+        return
+    },
+
+    displayLoseOrWin: function displayLoseOrWin() {
+
+        if (hangmanCinemas.playerOne.attemps <= 0) {
+            hangmanCinemas.playerOne.attempts += 6;
             $('#keyboard').hide();
 
-            $('#message').append(`
+            $('#message').html(`
                 <h3>You Failed.</h3>
                 <p>Would you like to see the answer?</p>
                 <button id="revealMovie">REVEAL MOVIE</button>
-                <button id="nextMovie">NEXT MOVIE</button>`)
+                <button id="playAgain">PLAY AGAIN</button>`)
                 .fadeIn('slow');
 
             $('button#revealMovie').click(hangmanCinemas.displayWinScreen);
+            $('button#playAgain').click(hangmanCinemas.startGame);
+
             $('#message').fadeIn('slow');
 
 
@@ -179,14 +204,6 @@ let hangmanCinemas = {
             setTimeout(function(){ hangmanCinemas.displayWinScreen(); }, 3000);
 
         }
-    }, 
-
-    skipMovie: function skipMovie() {
-        return
-    },
-
-    displayLoseOrWin: function displayLoseOrWin() {
-        
     },
 
     displayWinScreen: function displayWinScreen() {
@@ -195,17 +212,30 @@ let hangmanCinemas = {
         $('#gameplayScreen').hide();
 
 
-        $('div#moviePoster').html(`<img src="${this.movieInPlay.posterUrl}">`);
+        $('div#moviePoster').html(`<img src="${hangmanCinemas.movieInPlay.posterUrl}">`);
         $('div#moviePoster img').css({
             'max-width': "-webkit-fill-available",
             'height': 'auto'
         });
 
-        $('#movieTitle').text(this.movieInPlay.title);
-        $('#movieDetails').append(`
-            <label>Release: <p>${this.movieInPlay.releaseDate}</p> </label>
-            <label>Plot: <p>${this.movieInPlay.plot}</p> </label>
+        $('#movieTitle').text(hangmanCinemas.movieInPlay.title);
+        $('#movieDetails').html(`
+            <h3 id='movieTitle'>${hangmanCinemas.movieInPlay.title}</h3>
+            <label>Release: ${hangmanCinemas.movieInPlay.releaseDate}</label>
+            <label>Plot: <p>${hangmanCinemas.movieInPlay.plot}</p> </label>
+            <button id="playAgain">Play Aagin</button>
         `);
+
+        $('button#playAgain').css({
+            'background-color': 'transparent',
+            'border-style': 'solid',
+            'border-color': 'white',
+            'color': 'white',
+            'font-size': 16,
+        })
+        $('button#playAgain').click(hangmanCinemas.startGame);
+        
+        
     },
 
     displayGuessedLetters: function displayGuessedLetters(player) {
@@ -217,9 +247,30 @@ let hangmanCinemas = {
     guessLetter: function guessLetter(letter) {
         let player = hangmanCinemas.playerOne
 
-        
+        if (this.movieInPlay.title.toLowerCase().split('').includes(letter) === false) {
+            player.attempts -= 1;
 
-        console.log(letter);
+        } 
+        
+        if (player.attempts <= 0) {
+            $('#keyboard').hide();
+
+            $('#message').html(`
+                <h3>You Failed.</h3>
+                <p>Would you like to see the answer?</p>
+                <button id="revealMovie">REVEAL MOVIE</button>
+                <button id="playAgain">PLAY AGAIN</button>`)
+                .fadeIn('slow');
+
+            $('button#revealMovie').click(hangmanCinemas.displayWinScreen);
+            $('button#playAgain').click(hangmanCinemas.startGame);
+
+            $('#message').fadeIn('slow');
+
+        }
+
+        console.log(this.playerOne.attempts)
+        console.log(this.movieInPlay.title.toLowerCase().split('').includes(letter));
         hangmanCinemas.playerOne.guessedLetters.push(letter);
 
         hangmanCinemas.displayGuessedLetters(player);
