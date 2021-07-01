@@ -82,6 +82,12 @@
 #playerSection {
     display: flex;
     align-items: flex-start;
+    flex-direction: row;
+}
+
+#playerSection div {
+  margin: 0px 8px 0px 8px;
+  padding: 4px;
 }
 
 #gameboard {

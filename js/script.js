@@ -1,24 +1,31 @@
+/*
+HANGMAN CINEMAS DOCUMENTATION
+
+
+
+*/
+
+
 
 let hangmanCinemas = {
     apiKey: 'd08176009f77ef9e59b466044b7df500',
 
     playerOne: {  
-        name: '',
+        name: 'PLayer One',
         score: 0,
-        movieCollection: [],
         guessedLetters: [],
-        attemps: 6,
+        attempts: 6,
     },
     
     playerTwo: {  
-        name: '',
+        name: 'Player Two',
         score: 0,
-        movieCollection: [],
         guessedLetters: [],
-        attemps: 6,
+        attempts: 6,
     }, 
 
     multiplayer: false,
+    playerTurn: null,
     selectedGenres: [],
     gameboard: [],
     movieInPlay: {},
@@ -31,11 +38,13 @@ let hangmanCinemas = {
         hangmanCinemas.playerOne.attempts = 6;
         hangmanCinemas.playerTwo.attempts = 6;
 
-        hangmanCinemas.displayGuessedLetters(hangmanCinemas.playerOne)
+        hangmanCinemas.displayGuessedLetters(hangmanCinemas.playerOne);
+        hangmanCinemas.displayGuessedLetters(hangmanCinemas.playerTwo);
 
         if (hangmanCinemas.multiplayer === false) {
-            $('.playerTwo').css('display', 'none');
-        } 
+            $('#playerTwo').css('display', 'none');
+        }
+        hangmanCinemas.playerTurn = hangmanCinemas.playerOne;
 
         $('#winScreen').hide();
         $('#mainMenu').hide();
@@ -44,6 +53,14 @@ let hangmanCinemas = {
         hangmanCinemas.generateButtons();
         hangmanCinemas.getRandomMovie();   
         
+    },
+
+    playerToggle: function playerToggle() {
+        if (hangmanCinemas.playerTurn === hangmanCinemas.playerOne) {
+            hangmanCinemas.playerTurn = hangmanCinemas.playerTwo;
+        } else {
+            hangmanCinemas.playerTurn = hangmanCinemas.playerOne
+        };
     },
 
     generateButtons: function generateButtons() {
@@ -59,22 +76,26 @@ let hangmanCinemas = {
         $('#keyboard button').hover(function(e) {
             e.preventDefault()
             
-
-            $(e.currentTarget).css({
-                'background-color': 'green',
-                'opacity': '0.6'
+            if (hangmanCinemas.playerTurn === hangmanCinemas.playerOne) {
+                $(e.currentTarget).css({
+                    'background-color': 'green',
+                    'opacity': '1'
+                })
+            } else {
+                $(e.currentTarget).css({
+                'background-color': 'orange',
+                'opacity': '1'
             })
+            }
+            
         }, 
-
         function (e) {
             e.preventDefault();
-
-            
 
             $(e.currentTarget).css({
                 'background-color': 'transparent',
                 'opacity': '1'
-            })
+            }).removeClass('disabled');
         });
 
         $('#keyboard button').click(function (e) {
@@ -238,11 +259,16 @@ let hangmanCinemas = {
     displayGuessedLetters: function displayGuessedLetters(player) {
         let letters = player.guessedLetters.join('    ');
         
-        $('#guessedLetters').html(`<h3>${letters}</h3>`);
+        if (player === hangmanCinemas.playerOne) {
+            $('#p1GuessedLetters').html(`<h3>${letters}</h3>`);
+        } else {
+            $('#p2GuessedLetters').html(`<h3>${letters}</h3>`);
+        }
+        
     },
 
     guessLetter: function guessLetter(letter) {
-        let player = hangmanCinemas.playerOne
+        let player = hangmanCinemas.playerTurn;
 
         if (this.movieInPlay.title.toLowerCase().split('').includes(letter) === false) {
             player.attempts -= 1;
@@ -275,15 +301,24 @@ let hangmanCinemas = {
 
         }
 
-        console.log(this.playerOne.attempts)
-        hangmanCinemas.playerOne.guessedLetters.push(letter);
+        console.log(hangmanCinemas.playerTurn)
+
+        player.guessedLetters.push(letter);
+
 
         hangmanCinemas.displayGuessedLetters(player);
         hangmanCinemas.displayBoard();
 
-
-
+        if (hangmanCinemas.multiplayer === true) {
+            hangmanCinemas.playerToggle();
+        }
     },
+
+    calculateScore: function calculateScore(params) {
+        let score = hangmanCinemas.playerOne.score
+
+
+    }
 }   
 
 $('#message').hide();
