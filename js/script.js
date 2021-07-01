@@ -179,7 +179,6 @@ let hangmanCinemas = {
         let p1Letters = this.playerOne.guessedLetters;
         let p2Letters = this.playerTwo.guessedLetters;
 
-        
 
         const delimiter = '<i class="fas fa-asterisk"></i>'
 
@@ -191,7 +190,7 @@ let hangmanCinemas = {
                 this.gameboard.push(l);
             } else if ([' ', ':', '\'', '!', '-', '.', ',', '*', '&'].includes(l)) {
                 this.gameboard.push(l);
-            } else if (p1Letters.includes(l.toLowerCase())) {
+            } else if (p1Letters.includes(l.toLowerCase()) || p2Letters.includes(l.toLowerCase())) {
                 this.gameboard.push(l);
             } else {
                 this.gameboard.push(delimiter);
