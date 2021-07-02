@@ -273,11 +273,13 @@ let hangmanCinemas = {
         let letters = player.guessedLetters.join('     ');
         
         if (player === hangmanCinemas.playerOne) {
-            $('#p1GuessedLetters').html(`<h3>${letters}</h3>`);
+            $('#p1GuessedLetters').text(`${letters}`);
         } else {
-            $('#p2GuessedLetters').html(`<h3>${letters}</h3>`);
+            $('#p2GuessedLetters').text(`${letters}`);
         }
         
+
+
     },
 
     guessLetter: function guessLetter(letter) {
@@ -353,15 +355,27 @@ let hangmanCinemas = {
         }
 
         hangmanCinemas.displayScore(player);
+        hangmanCinemas.displayLives(player);
     },
 
     displayScore: function displayScore(player) {
         let score = player.score
         
         if (player === hangmanCinemas.playerOne) {
-            $('#p1Score').html(`<h3><i class="fas fa-dollar-sign"></i> ${score}</h3>`);
+            $('#p1Score').html(`<i class="fas fa-dollar-sign"></i> ${score}`);
         } else {
-            $('#p2Score').html(`<h3><i class="fas fa-dollar-sign"></i> ${score}</h3>`);
+            $('#p2Score').html(`<i class="fas fa-dollar-sign"></i> ${score}`);
+        }
+        
+    },
+
+    displayLives: function displayLives(player) {
+        let lives = player.attempts
+        
+        if (player === hangmanCinemas.playerOne) {
+            $('#p1Name').html(`<i class="fas fa-user-circle"></i>  Player One - ${lives}`);
+        } else {
+            $('#p2Name').html(`<i class="fas fa-user-circle"></i>  Player Two - ${lives}`);
         }
         
     },
