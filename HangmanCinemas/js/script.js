@@ -29,6 +29,12 @@ let hangmanCinemas = {
     selectedGenres: [],
     gameboard: [],
     movieInPlay: {},
+    letterScores: {
+        'vowels': 25,
+        'constanants': 50,
+        'capitals': 100,
+        'movie': 200
+    },
 
     startGame: function startGame() {
 
@@ -193,7 +199,7 @@ let hangmanCinemas = {
         for (const l of this.movieInPlay.title.split('')) {
             
             if ([0,1,2,3,4,5,6,7,8,9].includes(parseInt(l))) {
-                this.getRandomMovie()
+                this.gameboard.push(l);
             } else if (p1Letters.includes(l) || p2Letters.includes(l)) {
                 this.gameboard.push(l);
             } else if ([' ', ':', '\'', '!', '-', '.', ',', '*', '&'].includes(l)) {
@@ -315,17 +321,50 @@ let hangmanCinemas = {
 
         hangmanCinemas.displayGuessedLetters(player);
         hangmanCinemas.displayBoard();
+        hangmanCinemas.calculateScore(player, letter);
 
         if (hangmanCinemas.multiplayer === true) {
             hangmanCinemas.playerToggle();
         }
     },
 
-    calculateScore: function calculateScore(params) {
-        let score = hangmanCinemas.playerOne.score
+    calculateScore: function calculateScore(player, letter) {
+        
+        for (i = 0; i < hangmanCinemas.gameboard.length; i++) {
+            if (hangmanCinemas.gameboard[i] === letter.toUpperCase()) {
+                player.score += 100
+            } 
+        }
 
+        if ('aeiouy'.split('').includes(letter)) {
 
-    }
+            for (i = 0; i < hangmanCinemas.gameboard.length; i++) {
+                if (hangmanCinemas.gameboard[i] === letter) {
+                    player.score += 25
+                } 
+            } 
+        } else { 
+
+            for (i = 0; i < hangmanCinemas.gameboard.length; i++) {
+                if (hangmanCinemas.gameboard[i] === letter) {
+                    player.score += 50
+                }
+            }
+        }
+
+        hangmanCinemas.displayScore(player);
+    },
+
+    displayScore: function displayScore(player) {
+        let score = player.score
+        
+        if (player === hangmanCinemas.playerOne) {
+            $('#p1Score').html(`<h3><i class="fas fa-dollar-sign"></i> ${score}</h3>`);
+        } else {
+            $('#p2Score').html(`<h3><i class="fas fa-dollar-sign"></i> ${score}</h3>`);
+        }
+        
+    },
 }   
 
 $('#message').hide();
