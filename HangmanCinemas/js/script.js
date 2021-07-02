@@ -95,13 +95,21 @@ let hangmanCinemas = {
             $(e.currentTarget).css({
                 'background-color': 'transparent',
                 'opacity': '1'
-            }).removeClass('disabled');
+            });
         });
 
         $('#keyboard button').click(function (e) {
-
+            
             let letter = $(e.currentTarget).text();
             hangmanCinemas.guessLetter(letter);
+
+            $(this).unbind("mouseenter mouseleave");
+            $(e.currentTarget).css({
+                'background-color': 'darkgrey',
+                'opacity': '0.3'
+            })
+            .off('click');    
+
         });
 
         $('#message').hide();
@@ -142,7 +150,7 @@ let hangmanCinemas = {
         let movieList = [];
         let genreList = hangmanCinemas.selectedGenres.join(', ');
    
-        for (page = 1; page <=3; page++) {
+        for (page = 1; page <=2; page++) {
             const url = `https://api.themoviedb.org/3/discover/movie?api_key=${this.apiKey}&language=en-US&sort_by=popularity.desc&certification_country=US&include_adult=false&page=${page}&with_genres=${genreList}`
             // const url = `https://api.themoviedb.org/3/movie/popular?api_key=${this.apiKey}&language=en-US&page=${page}`
  
