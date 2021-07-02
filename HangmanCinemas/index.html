@@ -23,110 +23,111 @@
     <script defer src='./js/script.js'></script>
 </head>
 <body>
-    <div class='welcomeMenu' id='mainMenu'>
-        <h1 id='gameTitle'>Hangman Cinemas</h1>
-
-        <div class='welcomeMenu' id='playerSelect'>
-            <h2>SOLO</h2>       
-                <label class="switch" id='multiplayerToggle'>
-                    <input type="checkbox">
-                    <span class="slider round"></span>
-                </label>
-            <h2>MULTIPLAYER</h2>
-        </div>
-
-        <div class='welcomeMenu' id='genreSelect'>
-            <h2>Select your favorite genres.</h2>
-            <label class="container">Action
-                <input type="checkbox" id='28'>
-                <span class="checkmark"></span>
-              </label>
-              <label class="container">Comedy
-                <input type="checkbox" id='35'>
-                <span class="checkmark"></span>
-              </label>
-              <label class="container">Adventure
-                <input type="checkbox" id='12'>
-                <span class="checkmark"></span>
-              </label>
-              <label class="container" >Thriller
-                <input type="checkbox" id='53'>
-                <span class="checkmark"></span>
-              </label>
-              <label class="container">Sci-Fi
-                <input type="checkbox" id='878'>
-                <span class="checkmark"></span>
-              </label>
-              <label class="container">Animation
-                <input type="checkbox" id='16'>
-                <span class="checkmark"></span>
-              </label>
-        </div>
-
-        <div class='welcomeMenu' id='startGame' >
-            <button id='startBtn'>START GAME</button>
-        </div>
-    </div>
-
-    <div class='gameScreen' id='gameplayScreen'>
-
-    
-        <div class='gameScreen' id='gameLeftSide'>
-
+    <main>
+        <div class='welcomeMenu' id='mainMenu'>
             <h1 id='gameTitle'>Hangman Cinemas</h1>
-            <div class='gameScreen' id='playerSection'>
-                <div id='playerOne'>
-                    <h3 id='p1Name'><i class="fas fa-user-circle"></i>  Player
-                    One - 6</h3>
-                    <h3 id='p1Score'><i class="fas fa-dollar-sign"></i> 0</h3>
-                    <h3 id='p1GuessedLetters'> </h3>
+
+            <div class='welcomeMenu' id='playerSelect'>
+                <h2>SOLO</h2>       
+                    <label class="switch" id='multiplayerToggle'>
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                <h2>MULTIPLAYER</h2>
+            </div>
+
+            <div class='welcomeMenu' id='genreSelect'>
+                <h2>Select your favorite genres.</h2>
+                <label class="container">Action
+                    <input type="checkbox" id='28'>
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">Comedy
+                    <input type="checkbox" id='35'>
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">Adventure
+                    <input type="checkbox" id='12'>
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container" >Thriller
+                    <input type="checkbox" id='53'>
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">Sci-Fi
+                    <input type="checkbox" id='878'>
+                    <span class="checkmark"></span>
+                </label>
+                <label class="container">Animation
+                    <input type="checkbox" id='16'>
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+
+            <div class='welcomeMenu' id='startGame' >
+                <button id='startBtn'>START GAME</button>
+            </div>
+        </div>
+
+        <div class='gameScreen' id='gameplayScreen'>
+
+        
+            <div class='gameScreen' id='gameLeftSide'>
+
+                <h1 id='gameTitle'>Hangman Cinemas</h1>
+                <div class='gameScreen' id='playerSection'>
+                    <div id='playerOne'>
+                        <h3 id='p1Name'><i class="fas fa-user-circle"></i>  Player
+                        One - 6</h3>
+                        <h3 id='p1Score'><i class="fas fa-dollar-sign"></i> 0</h3>
+                        <h3 id='p1GuessedLetters'> </h3>
+                    </div>
+                    
+                    <div id='playerTwo'>
+                        <h3 id='p2Name'><i class="fas fa-user-circle"></i>  Player
+                        Two - 6</h3>
+                        <h3 id='p2Score'><i class="fas fa-dollar-sign"></i> 0</h3>
+                        <h3 id='p2GuessedLetters'> </h3>
+                    </div>
+
+                </div>
+
+                
+                <div class='gameScreen' id='keyboard'>
+                    <label>Choose A Letter</label>
+
+                </div>
+
+                <div class='gameScreen' id='message'>
+
                 </div>
                 
-                <div id='playerTwo'>
-                    <h3 id='p2Name'><i class="fas fa-user-circle"></i>  Player
-                    Two - 6</h3>
-                    <h3 id='p2Score'><i class="fas fa-dollar-sign"></i> 0</h3>
-                    <h3 id='p2GuessedLetters'> </h3>
+            </div>
+            
+            <div class='gameScreen' id='gameRightSide'>
+                <img src=''>
+            </div>
+            
+            <div class='gameScreen' id='gameboard'>
+                
+            </div>
+
+        </div>
+
+        <div class='winScreen' id='winScreen'>
+            <h1>Hangman Cinemas</h1>
+
+            <div id='detailsSection'>
+                <div id='moviePoster'>
+
                 </div>
 
-            </div>
-
+                <div id='movieDetails'>
             
-            <div class='gameScreen' id='keyboard'>
-                <label>Choose A Letter</label>
-
-            </div>
-
-            <div class='gameScreen' id='message'>
-
-            </div>
-            
-        </div>
-        
-        <div class='gameScreen' id='gameRightSide'>
-            <img src=''>
-        </div>
-        
-        <div class='gameScreen' id='gameboard'>
-            
-        </div>
-
-    </div>
-
-    <div class='winScreen' id='winScreen'>
-        <h1>Hangman Cinemas</h1>
-
-        <div id='detailsSection'>
-            <div id='moviePoster'>
-
-            </div>
-
-            <div id='movieDetails'>
-        
+                </div>
             </div>
         </div>
-    </div>
-
+    </main>
 
 </body>
 </html>

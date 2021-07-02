@@ -156,7 +156,7 @@ let hangmanCinemas = {
         let movieList = [];
         let genreList = hangmanCinemas.selectedGenres.join(', ');
    
-        for (page = 1; page <=2; page++) {
+        for (page = 1; page <=5; page++) {
             const url = `https://api.themoviedb.org/3/discover/movie?api_key=${this.apiKey}&language=en-US&sort_by=popularity.desc&certification_country=US&include_adult=false&page=${page}&with_genres=${genreList}`
             // const url = `https://api.themoviedb.org/3/movie/popular?api_key=${this.apiKey}&language=en-US&page=${page}`
  
@@ -241,10 +241,33 @@ let hangmanCinemas = {
 
 
         $('div#moviePoster').html(`<img src="${hangmanCinemas.movieInPlay.posterUrl}">`);
-        $('div#moviePoster img').css({
-            'max-width': "-webkit-fill-available",
-            'height': 'auto'
+        
+        $(document).ready(function() {
+            $('#moviePoster img').each(function() {
+                var maxWidth = 320; // Max width for the image
+                var maxHeight = 480;    // Max height for the image
+                var ratio = 0;  // Used for aspect ratio
+                var width = $(this).width();    // Current image width
+                var height = $(this).height();  // Current image height
+            
+                // Check if the current width is larger than the max
+                if(width > maxWidth){
+                    ratio = maxWidth / width;   // get ratio for scaling image
+                    $(this).css("width", maxWidth); // Set new width
+                    $(this).css("height", height * ratio);  // Scale height based on ratio
+                    height = height * ratio;    // Reset height to match scaled image
+                }
+            
+                // Check if current height is larger than max
+                if(height > maxHeight){
+                    ratio = maxHeight / height; // get ratio for scaling image
+                    $(this).css("height", maxHeight);   // Set new height
+                    $(this).css("width", width * ratio);    // Scale width based on ratio
+                    width = width * ratio;    // Reset width to match scaled image
+                }
+            })
         });
+            
 
         $('#movieTitle').text(hangmanCinemas.movieInPlay.title);
         $('#movieDetails').html(`
